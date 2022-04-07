@@ -2,13 +2,22 @@ import React from "react";
 import memesData from "../memesData.js";
 
 export default function Meme() {
-  const [memeImage, setMemeImage] = React.useState("");
+  const [meme, setMeme] = React.useState({
+    topText: "",
+    bottomText: "",
+    randomImage:
+      "https://www.firstbenefits.org/wp-content/uploads/2017/10/placeholder-1024x1024.png",
+  });
 
   function getMemeImage() {
     const memesArray = memesData.data.memes;
     const randomNumber = Math.floor(Math.random() * memesArray.length);
-    setMemeImage(memesArray[randomNumber].url);
+    setMeme((prevMeme) => ({
+      ...prevMeme,
+      randomImage: memesArray[randomNumber].url,
+    }));
   }
+
   return (
     <main>
       <div className="form">
@@ -18,7 +27,11 @@ export default function Meme() {
           Get a new meme image 🖼
         </button>
       </div>
-      <img src={memeImage} alt="Base for memes" className="meme--image" />
+      <img
+        src={meme.randomImage}
+        alt="Base for memes"
+        className="meme--image"
+      />
     </main>
   );
 }
